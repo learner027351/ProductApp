@@ -43,10 +43,20 @@ namespace ProductApp.Controllers
 
         public IActionResult AddProduct(Product Products)
         {
-            _context.Products.Add(Products);
-            _context.SaveChanges();
+            try
+            {
+                _context.Products.Add(Products);
+                _context.SaveChanges();
 
-            return Ok("Product Added successfully!");
+                return Ok(Products);
+            }
+
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+            
         }
 
         [HttpPut("UpdateProduct/{id}")]
@@ -71,7 +81,7 @@ namespace ProductApp.Controllers
 
                 _context.SaveChanges();
 
-                return Ok("Product Updated successfully!");
+                return Ok(isRecordAvailable);
             }
             catch(Exception ex)
             {
@@ -93,11 +103,11 @@ namespace ProductApp.Controllers
                 }
                 _context.Products.Remove(record);
                 _context.SaveChanges();
-                return Ok("Product Deleted Successfully!");
+                return Ok();
             }
             catch(Exception ex)
             {
-                return StatusCode(500, "internal Server Error: " + ex.Message);
+                return StatusCode(500,  ex.Message);
             }
         }
 
