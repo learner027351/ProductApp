@@ -27,6 +27,7 @@ export class ProductList   {
     mfg_date: new Date()
 
   };
+  isEditMode = false;
 
   constructor(private productService: ProductService) {
 
@@ -80,6 +81,57 @@ export class ProductList   {
 
       });
   }
+  editProduct(product: Product): void {
+
+    this.newProduct = {
+
+      productId: product.productId,
+
+      productName: product.productName,
+
+      productPrice: product.productPrice,
+
+      productDescription: product.productDescription,
+
+      productCategory: product.productCategory,
+
+      isExpire: product.isExpire,
+
+      mfg_date: product.mfg_date
+
+    };
+
+    this.isEditMode = true;
+
+  }
+  updateProduct(): void {
+
+    this.productService
+      .updateProduct(
+        this.newProduct.productId,
+        this.newProduct
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.loadProducts();
+
+          this.resetForm();
+
+          this.isEditMode = false;
+
+        },
+
+        error: (err: any) => {
+
+          console.error(err);
+
+        }
+
+      });
+
+  }
   resetForm(): void {
 
     this.newProduct = {
@@ -93,6 +145,8 @@ export class ProductList   {
       mfg_date: new Date()
 
     };
+
+    this.isEditMode = false;
 
   }
 
