@@ -27,7 +27,7 @@ namespace ProductApp.Controllers
 
                 if (product.Count == 0)
                 {
-                    return NotFound("no products are available");
+                    return NotFound("No products are available!");
 
                 }
 
@@ -46,7 +46,7 @@ namespace ProductApp.Controllers
             _context.Products.Add(Products);
             _context.SaveChanges();
 
-            return Ok("Product added successfully");
+            return Ok("Product Added successfully!");
         }
 
         [HttpPut("UpdateProduct/{id}")]
@@ -59,7 +59,7 @@ namespace ProductApp.Controllers
                 var isRecordAvailable = _context.Products.SingleOrDefault(s=>s.ProductId==id);
                 if (isRecordAvailable == null)
                 {
-                    return NotFound("Product Not Found");
+                    return NotFound("Product Not Found!");
                 }
 
                 isRecordAvailable.ProductName = Products.ProductName;
@@ -71,7 +71,7 @@ namespace ProductApp.Controllers
 
                 _context.SaveChanges();
 
-                return Ok("Product added successfully");
+                return Ok("Product Updated successfully!");
             }
             catch(Exception ex)
             {
@@ -92,7 +92,8 @@ namespace ProductApp.Controllers
                     return NotFound("Product not found");
                 }
                 _context.Products.Remove(record);
-                return Ok("Product Delete");
+                _context.SaveChanges();
+                return Ok("Product Deleted Successfully!");
             }
             catch(Exception ex)
             {

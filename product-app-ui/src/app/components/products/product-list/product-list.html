@@ -1,0 +1,60 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Product List</h2>
+
+  @if(products().length === 0)
+  {
+  <div class="alert alert-warning">
+    No products found.
+  </div>
+  }
+
+  @if(products().length > 0)
+  {
+  <table class="table table-bordered table-striped">
+
+    <thead class="table-dark">
+
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Manufacture Date</th>
+        <th>Expired</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      @for(product of products(); track product.productId)
+      {
+      <tr>
+
+        <td>{{ product.productId }}</td>
+
+        <td>{{ product.productName }}</td>
+
+        <td>{{ product.productPrice }}</td>
+
+        <td>{{ product.productCategory }}</td>
+
+        <td>{{ product.productDescription }}</td>
+
+        <td>{{ product.mfg_date | date:'shortDate' }}</td>
+
+        <td>
+          {{ product.isExpire ? 'Yes' : 'No' }}
+        </td>
+
+      </tr>
+      }
+
+    </tbody>
+
+  </table>
+  }
+
+</div>
